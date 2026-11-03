@@ -11,7 +11,7 @@ pipeline{
         }
         stage("Checkout from SCM"){
             steps{
-                git branch: 'main', credentialsId: 'github', url: 'https://github.com/MSFaizi/gitops-register-app'
+                git branch: 'main', credentialsId: 'github-auth', url: 'https://github.com/Buhaiev/gitops-register-app'
             }
         }
         stage("Update the Deployment Tags"){
@@ -27,12 +27,12 @@ pipeline{
             steps{
                 sh """
                 git config --global user.name "MSFaizi"
-                git config --global user.email "kode2cloud@gmail.com"
+                git config --global user.email "artemwinnerst@gmail.com"
                 git add deployment.yaml
                 git commit -m "Updated Deployment manifest"
                 """
-                withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]){
-                    sh "git push https://github.com/MSFaizi/gitops-register-app main "
+                withCredentials([gitUsernamePassword(credentialsId: 'github-auth', gitToolName: 'Default')]){
+                    sh "git push https://github.com/Buhaiev/gitops-register-app main "
                 }
             }
         }
